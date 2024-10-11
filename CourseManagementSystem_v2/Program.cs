@@ -92,7 +92,7 @@ namespace CourseManagementSystem_v2
                 Console.Write("Enter Duration: ");
                 string Duration = Console.ReadLine();
 
-                Console.Write("Enter Price: ");
+                
                 decimal Price = Repo.ValidateCoursePrice();
 
 
@@ -141,11 +141,22 @@ namespace CourseManagementSystem_v2
 
             void ReadCourses(CourseRepository repo)
             {
-                var programList = repo.ReadAllCourses();
-                foreach (var program in programList)
+                var CourseList = repo.ReadAllCourses();
+
+                if(CourseList != null)
                 {
-                    Console.WriteLine(program.ToString());
+                    Console.WriteLine("---------------Available Courses---------");
+                    foreach (var course in CourseList)
+                    {
+                        Console.WriteLine(course.ToString());
+                    }
+
                 }
+                else
+                {
+                    Console.WriteLine("Course Not Found");
+                }
+                
             }
 
         }

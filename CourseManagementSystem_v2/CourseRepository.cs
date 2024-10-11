@@ -166,10 +166,6 @@ namespace CourseManagementSystem_v2
 
                 };
             }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine($"SQL Error: {sqlEx.Message}");
-            }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
