@@ -53,47 +53,11 @@ namespace CourseManagementSystem_v2
 
         //}
 
-        public void InitailizeDatabase()
-        {
-            using (SqlConnection con = new SqlConnection(ConnectionString))
-            {
-                con.Open();
-
-                string createDatabase = "IF NOT EXISTS (SELECT * FROM sys.database WHERE name ='CourseManagement')" +
-                                         "CREATE DATABASE CourseManagement";
-                using (SqlCommand cmd = new SqlCommand(createDatabase, con))
-                {
-                    cmd.BeginExecuteNonQuery();
-                }          
-
-            }
-
-            using (SqlConnection connection = new SqlConnection(databaseConnectionString))
-            {
-                connection.Open();
-                //connection.ChangeDatabase("CourseManagement");
-
-                string createTable = @" 
-                    IF NOT EXISTS (SELECT  * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Courses')
-                    CREATE TABLE Courses(
-                        CourseId INT PRIMARY KEY,
-                        Title NVARCHAR(100),
-                        Duration  NVARCHAR(100),
-                        Price decimal(18, 2)
-                    );"
-                ;
-
-                using (SqlCommand command = new SqlCommand(createTable, connection))
-                {
-                    command.ExecuteNonQuery();
-                }
-            }
-
-        }
+      
 
         
 
-        public void CreateCourse(string Title, string Duration, decimal Price)
+        public void CreateCourse(string id ,string Title, string Duration, decimal Price)
         {
             try
             {
@@ -102,9 +66,10 @@ namespace CourseManagementSystem_v2
                     string capitalizeTitle = CapitalizeTitle(Title);
                     connection.Open();
                     connection.ChangeDatabase("CourseManagement");
-                    string Query = "INSERT INTO Courses (Title,Duration,Price) VALUES (@Title,@Duration,@Price)";
+                    string Query = "INSERT INTO Courses (Title,Duration,Price) VALUES (@id,@Title,@Duration,@Price)";
                     using (SqlCommand cmd = new SqlCommand(Query, connection))
                     {
+                        cmd.Parameters.AddWithValue("@id", id);
                         cmd.Parameters.AddWithValue("@Title", capitalizeTitle);
                         cmd.Parameters.AddWithValue("@Duration", Duration);
                         cmd.Parameters.AddWithValue("@Price", Price);

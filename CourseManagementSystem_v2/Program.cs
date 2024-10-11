@@ -13,7 +13,7 @@ namespace CourseManagementSystem_v2
         static void Main(string[] args)
         {
             CourseRepository repository = new CourseRepository();
-            repository.InitailizeDatabase();
+            //repository.InitailizeDatabase();
             int choice;
 
 
@@ -83,6 +83,9 @@ namespace CourseManagementSystem_v2
 
             void CreateCourse( CourseRepository Repo)
             {
+                Console.Write("Enter Course ID: ");
+                string id = Console.ReadLine();
+
                 Console.Write("Enter course Title: ");
                 string title = Console.ReadLine();
 
@@ -93,7 +96,7 @@ namespace CourseManagementSystem_v2
                 decimal Price = Repo.ValidateCoursePrice();
 
 
-                Repo.CreateCourse(title, Duration, Price);
+                Repo.CreateCourse(id,title, Duration, Price);
 
             }
 
