@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace CourseManagementSystem_v2
 {
-    internal class Course
+    public class Course
     {
+        public string CourseId { get; set; }
+        public string Title { get; set; }
+        public string Duration { get; set; }
+        public decimal Price { get; set; }
     }
 }
